@@ -5,9 +5,10 @@ FROM ubuntu:14.04
 RUN apt-get update -qq                                                            \
     && apt-get install -y --no-install-recommends                                 \
             git curl                                                              \
+            openssh-server                                                        \
     && apt-get clean autoclean                                                    \
-    && apt-get autoremove --yes                                                   \
-    && rm -rf                  /var/lib/{apt,dpkg,cache,log}/
+    && apt-get autoremove --yes
+#    && rm -rf                  /var/lib/{apt,dpkg,cache,log}/
 
 # Java Version
 ENV JAVA_VERSION_MAJOR 8
@@ -46,3 +47,15 @@ RUN curl -kLOH "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=ac
 ENV JAVA_HOME /opt/jdk
 ENV PATH $PATH:$JAVA_HOME/bin
 
+RUN mkdir /var/run/sshd
+RUN echo 'root:screencast' | chpasswd
+RUN sed -i 's/PermitRootLogin without-password/PermitRootLogin yes/' /etc/ssh/sshd_config
+
+# SSH login fix. Otherwise user is kicked off after login
+RUN sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd
+
+ENV NOTVISIBLE "in users profile"
+RUN echo "export VISIBLE=now" >> /etc/profile
+
+EXPOSE 22
+CMD ["/usr/sbin/sshd", "-D"]
