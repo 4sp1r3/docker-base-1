@@ -2,7 +2,8 @@ FROM ubuntu:14.04
 
 # Install git, download and extract Stash and create the required directory layout.
 # Try to limit the number of RUN instructions to minimise the number of layers that will need to be created.
-RUN DEBIAN_FRONTEND=noninteractive  apt-get update -qq                            \
+RUN DEBIAN_FRONTEND=noninteractive
+RUN apt-get update -qq                                                            \
     && apt-get install -y --no-install-recommends                                 \
 #            git curl                                                              \
             git-core curl sudo xmlstarlet                                         \
