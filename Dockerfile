@@ -2,10 +2,8 @@ FROM ubuntu:14.04
 
 # Install git, download and extract Stash and create the required directory layout.
 # Try to limit the number of RUN instructions to minimise the number of layers that will need to be created.
-RUN DEBIAN_FRONTEND=noninteractive
-RUN apt-get update -qq                                                            \
-    && apt-get install -y --no-install-recommends                                 \
-#            git curl                                                              \
+RUN DEBIAN_FRONTEND=noninteractive apt-get update
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends     \
             git-core curl sudo xmlstarlet                                         \
             software-properties-common python-software-properties                 \
     && apt-get clean autoclean                                                    \
