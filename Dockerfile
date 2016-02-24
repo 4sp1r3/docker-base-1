@@ -2,10 +2,11 @@ FROM ubuntu:14.04
 
 # Install git, download and extract Stash and create the required directory layout.
 # Try to limit the number of RUN instructions to minimise the number of layers that will need to be created.
-RUN apt-get update -qq                                                            \
+RUN DEBIAN_FRONTEND=noninteractive  apt-get update -qq                            \
     && apt-get install -y --no-install-recommends                                 \
-            git curl                                                              \
-            openssh-server                                                        \
+#            git curl                                                              \
+            git-core curl sudo xmlstarlet                                         \
+            software-properties-common python-software-properties                 \
     && apt-get clean autoclean                                                    \
     && apt-get autoremove --yes
 #    && rm -rf                  /var/lib/{apt,dpkg,cache,log}/
@@ -21,27 +22,27 @@ RUN curl -kLOH "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=ac
   http://download.oracle.com/otn-pub/java/jdk/${JAVA_VERSION_MAJOR}u${JAVA_VERSION_MINOR}-b${JAVA_VERSION_BUILD}/${JAVA_PACKAGE}-${JAVA_VERSION_MAJOR}u${JAVA_VERSION_MINOR}-linux-x64.tar.gz && \
     tar -zxf ${JAVA_PACKAGE}-${JAVA_VERSION_MAJOR}u${JAVA_VERSION_MINOR}-linux-x64.tar.gz -C /opt && \
     rm ${JAVA_PACKAGE}-${JAVA_VERSION_MAJOR}u${JAVA_VERSION_MINOR}-linux-x64.tar.gz && \
-    ln -s /opt/jdk1.${JAVA_VERSION_MAJOR}.0_${JAVA_VERSION_MINOR} /opt/jdk && \
-    rm -rf /opt/jdk/*src.zip \
-           /opt/jdk/lib/missioncontrol \
-           /opt/jdk/lib/visualvm \
-           /opt/jdk/lib/*javafx* \
-           /opt/jdk/jre/lib/plugin.jar \
-           /opt/jdk/jre/lib/ext/jfxrt.jar \
-           /opt/jdk/jre/bin/javaws \
-           /opt/jdk/jre/lib/javaws.jar \
-           /opt/jdk/jre/lib/desktop \
-           /opt/jdk/jre/plugin \
-           /opt/jdk/jre/lib/deploy* \
-           /opt/jdk/jre/lib/*javafx* \
-           /opt/jdk/jre/lib/*jfx* \
-           /opt/jdk/jre/lib/amd64/libdecora_sse.so \
-           /opt/jdk/jre/lib/amd64/libprism_*.so \
-           /opt/jdk/jre/lib/amd64/libfxplugins.so \
-           /opt/jdk/jre/lib/amd64/libglass.so \
-           /opt/jdk/jre/lib/amd64/libgstreamer-lite.so \
-           /opt/jdk/jre/lib/amd64/libjavafx*.so \
-           /opt/jdk/jre/lib/amd64/libjfx*.so
+    ln -s /opt/jdk1.${JAVA_VERSION_MAJOR}.0_${JAVA_VERSION_MINOR} /opt/jdk # && \
+#    rm -rf /opt/jdk/*src.zip \
+#           /opt/jdk/lib/missioncontrol \
+#           /opt/jdk/lib/visualvm \
+#           /opt/jdk/lib/*javafx* \
+#           /opt/jdk/jre/lib/plugin.jar \
+#           /opt/jdk/jre/lib/ext/jfxrt.jar \
+#           /opt/jdk/jre/bin/javaws \
+#           /opt/jdk/jre/lib/javaws.jar \
+#           /opt/jdk/jre/lib/desktop \
+#           /opt/jdk/jre/plugin \
+#           /opt/jdk/jre/lib/deploy* \
+#           /opt/jdk/jre/lib/*javafx* \
+#           /opt/jdk/jre/lib/*jfx* \
+#           /opt/jdk/jre/lib/amd64/libdecora_sse.so \
+#           /opt/jdk/jre/lib/amd64/libprism_*.so \
+#           /opt/jdk/jre/lib/amd64/libfxplugins.so \
+#           /opt/jdk/jre/lib/amd64/libglass.so \
+#           /opt/jdk/jre/lib/amd64/libgstreamer-lite.so \
+#           /opt/jdk/jre/lib/amd64/libjavafx*.so \
+#           /opt/jdk/jre/lib/amd64/libjfx*.so
 
 # Set environment
 ENV JAVA_HOME /opt/jdk
