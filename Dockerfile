@@ -4,8 +4,7 @@ FROM ubuntu:14.04
 # Try to limit the number of RUN instructions to minimise the number of layers that will need to be created.
 RUN DEBIAN_FRONTEND=noninteractive apt-get update
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends     \
-            git-core curl sudo xmlstarlet                                         \
-            software-properties-common python-software-properties                 \
+            git-core curl sudo                                                    \
     && apt-get clean autoclean                                                    \
     && apt-get autoremove --yes
 #    && rm -rf                  /var/lib/{apt,dpkg,cache,log}/
