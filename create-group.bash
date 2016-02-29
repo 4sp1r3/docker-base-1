@@ -6,5 +6,5 @@ if [ $# -eq 0 ]; then
 fi
 
 /usr/sbin/groupadd $1
-echo "%$1 ALL=NOPASSWD: /usr/local/bin/own-volume" >> /etc/sudoers
+echo "%$1 ALL=NOPASSWD: /usr/local/bin/grant-access-to-volume" >> /etc/sudoers
 
