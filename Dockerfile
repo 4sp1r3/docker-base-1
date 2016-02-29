@@ -1,13 +1,5 @@
 FROM ubuntu:14.04
-
-# Install git, download and extract Stash and create the required directory layout.
-# Try to limit the number of RUN instructions to minimise the number of layers that will need to be created.
-RUN DEBIAN_FRONTEND=noninteractive apt-get update
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends     \
-            git-core curl sudo                                                    \
-    && apt-get clean autoclean                                                    \
-    && apt-get autoremove --yes
-#    && rm -rf                  /var/lib/{apt,dpkg,cache,log}/
+MAINTAINER Ove Ranheim <oranheim@gmail.com>
 
 # Java Version
 ENV JAVA_VERSION_MAJOR 8
@@ -15,46 +7,25 @@ ENV JAVA_VERSION_MINOR 66
 ENV JAVA_VERSION_BUILD 17
 ENV JAVA_PACKAGE       jdk
 
+RUN DEBIAN_FRONTEND=noninteractive apt-get update
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends     \
+            git-core curl sudo                                                    \
+    && apt-get clean autoclean                                                    \
+    && apt-get autoremove --yes
+
 # Download and unarchive Java
 RUN curl -kLOH "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie" \
   http://download.oracle.com/otn-pub/java/jdk/${JAVA_VERSION_MAJOR}u${JAVA_VERSION_MINOR}-b${JAVA_VERSION_BUILD}/${JAVA_PACKAGE}-${JAVA_VERSION_MAJOR}u${JAVA_VERSION_MINOR}-linux-x64.tar.gz && \
     tar -zxf ${JAVA_PACKAGE}-${JAVA_VERSION_MAJOR}u${JAVA_VERSION_MINOR}-linux-x64.tar.gz -C /opt && \
     rm ${JAVA_PACKAGE}-${JAVA_VERSION_MAJOR}u${JAVA_VERSION_MINOR}-linux-x64.tar.gz && \
-    ln -s /opt/jdk1.${JAVA_VERSION_MAJOR}.0_${JAVA_VERSION_MINOR} /opt/jdk # && \
-#    rm -rf /opt/jdk/*src.zip \
-#           /opt/jdk/lib/missioncontrol \
-#           /opt/jdk/lib/visualvm \
-#           /opt/jdk/lib/*javafx* \
-#           /opt/jdk/jre/lib/plugin.jar \
-#           /opt/jdk/jre/lib/ext/jfxrt.jar \
-#           /opt/jdk/jre/bin/javaws \
-#           /opt/jdk/jre/lib/javaws.jar \
-#           /opt/jdk/jre/lib/desktop \
-#           /opt/jdk/jre/plugin \
-#           /opt/jdk/jre/lib/deploy* \
-#           /opt/jdk/jre/lib/*javafx* \
-#           /opt/jdk/jre/lib/*jfx* \
-#           /opt/jdk/jre/lib/amd64/libdecora_sse.so \
-#           /opt/jdk/jre/lib/amd64/libprism_*.so \
-#           /opt/jdk/jre/lib/amd64/libfxplugins.so \
-#           /opt/jdk/jre/lib/amd64/libglass.so \
-#           /opt/jdk/jre/lib/amd64/libgstreamer-lite.so \
-#           /opt/jdk/jre/lib/amd64/libjavafx*.so \
-#           /opt/jdk/jre/lib/amd64/libjfx*.so
+    ln -s /opt/jdk1.${JAVA_VERSION_MAJOR}.0_${JAVA_VERSION_MINOR} /opt/jdk
 
 # Set environment
 ENV JAVA_HOME /opt/jdk
 ENV PATH $PATH:$JAVA_HOME/bin
 
-#RUN mkdir /var/run/sshd
-#RUN echo 'root:screencast' | chpasswd
-#RUN sed -i 's/PermitRootLogin without-password/PermitRootLogin yes/' /etc/ssh/sshd_config
+ADD create-group.bash /usr/local/bin/create-group
+RUN chmod +x /usr/local/bin/create-group
 
-# SSH login fix. Otherwise user is kicked off after login
-#RUN sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd
-
-#ENV NOTVISIBLE "in users profile"
-#RUN echo "export VISIBLE=now" >> /etc/profile
-
-#EXPOSE 22
-#CMD ["/usr/sbin/sshd", "-D"]
+ADD grant-access-to-volume.bash /usr/local/bin/grant-access-to-volume
+RUN chmod +x /usr/local/bin/grant-access-to-volume
