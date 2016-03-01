@@ -9,7 +9,7 @@ ENV JAVA_PACKAGE       jdk
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get update
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends     \
-            git-core curl sudo                                                    \
+            ca-certificates git-core curl sudo                                    \
     && apt-get clean autoclean                                                    \
     && apt-get autoremove --yes
 
