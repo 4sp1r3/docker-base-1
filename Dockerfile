@@ -31,9 +31,3 @@ RUN curl -kLOH "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=ac
 # Set environment
 ENV JAVA_HOME /opt/jdk
 ENV PATH $PATH:$JAVA_HOME/bin
-
-ADD create-group.bash /usr/local/bin/create-group
-RUN chmod +x /usr/local/bin/create-group
-
-ADD grant-access-to-volume.bash /usr/local/bin/grant-access-to-volume
-RUN chmod +x /usr/local/bin/grant-access-to-volume
