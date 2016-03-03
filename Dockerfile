@@ -12,6 +12,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends   
             ca-certificates git-core curl sudo                                    \
     && apt-get clean autoclean                                                    \
     && apt-get autoremove --yes
+    && rm -rf /var/lib/apt/lists/*
 
 # grab gosu for easy step-down from root
 RUN gpg --keyserver pool.sks-keyservers.net --recv-keys B42F6819007F00F88E364FD4036A9C25BF357DD4
