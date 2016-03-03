@@ -11,7 +11,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends     \
             ca-certificates git-core curl sudo                                    \
     && apt-get clean autoclean                                                    \
-    && apt-get autoremove --yes
+    && apt-get autoremove --yes                                                   \
     && rm -rf /var/lib/apt/lists/*
 
 # grab gosu for easy step-down from root

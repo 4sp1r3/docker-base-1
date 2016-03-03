@@ -13,7 +13,7 @@ The purpose of the Descoped Base image is to provide som basic base capabilities
 
 ## How to use this image?
 
-No configuration is required for `descoped/base`
+No configuration is required for the container `descoped/base`
 
 ## Source code
 
