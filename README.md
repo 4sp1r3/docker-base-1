@@ -1,4 +1,4 @@
-# Descoped Base Image
+# Descoped Base
 
 ## What is this image?
 
