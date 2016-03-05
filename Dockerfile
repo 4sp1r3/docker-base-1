@@ -40,7 +40,7 @@ RUN { \
 		echo 'dirname "$(dirname "$(readlink -f "$(which javac || which java)")")"'; \
 	} > /usr/local/bin/docker-java-home \
 	&& chmod +x /usr/local/bin/docker-java-home \
-	&& set -x \
-	&& [ "$JAVA_HOME" = "$(docker-java-home)" ]
+	&& set -x
+RUN [ "$JAVA_HOME" = "$(docker-java-home)" ]
 
 CMD ["/bin/bash"]
