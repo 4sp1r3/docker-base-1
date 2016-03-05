@@ -30,6 +30,8 @@ RUN curl -kLOH "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=ac
     rm ${JAVA_PACKAGE}-${JAVA_VERSION_MAJOR}u${JAVA_VERSION_MINOR}-linux-x64.tar.gz && \
     ln -s /opt/jdk1.${JAVA_VERSION_MAJOR}.0_${JAVA_VERSION_MINOR} /opt/jdk
 
+ENV JAVA_HOME /opt/jdk
+
 RUN { \
 		echo '#!/bin/bash'; \
 		echo 'set -e'; \
@@ -38,8 +40,6 @@ RUN { \
 	} > /usr/local/bin/docker-java-home \
 	&& chmod +x /usr/local/bin/docker-java-home
 
-# Set environment
-#ENV JAVA_HOME /opt/jdk
 #ENV PATH $PATH:$JAVA_HOME/bin
 
 CMD ["/bin/bash"]
