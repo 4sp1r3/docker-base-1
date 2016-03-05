@@ -37,7 +37,7 @@ RUN { \
 		echo 'export JAVA_HOME=/opt/jdk'; \
 		echo 'export PATH=$PATH:$JAVA_HOME/bin'; \
 	} > /usr/local/bin/docker-java-home \
-	&& chmod +x /usr/local/bin/docker-java-home
+	&& chmod +x /usr/local/bin/docker-java-home \
 	&& docker-java-home
 
 #ENV PATH $PATH:$JAVA_HOME/bin
