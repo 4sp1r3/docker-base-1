@@ -47,6 +47,6 @@ RUN { \
 	} > /usr/local/bin/docker-java-home \
 	&& chmod +x /usr/local/bin/docker-java-home
 
-ADD set-java-home.bash /set-java-home.sh
-RUN chmod +x /set-java-home.sh
+#ADD set-java-home.bash /set-java-home.sh
+#RUN chmod +x /set-java-home.sh
 
