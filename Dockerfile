@@ -5,7 +5,9 @@ MAINTAINER Ove Ranheim <oranheim@gmail.com>
 ENV JAVA_VERSION_MAJOR 8
 ENV JAVA_VERSION_MINOR 66
 ENV JAVA_VERSION_BUILD 17
-ENV JAVA_PACKAGE       jdk
+ENV JAVA_PACKAGE jdk
+ENV LANG C.UTF-8
+
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get update
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends     \
@@ -29,6 +31,8 @@ RUN curl -kLOH "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=ac
     rm ${JAVA_PACKAGE}-${JAVA_VERSION_MAJOR}u${JAVA_VERSION_MINOR}-linux-x64.tar.gz && \
     ln -s /opt/jdk1.${JAVA_VERSION_MAJOR}.0_${JAVA_VERSION_MINOR} /opt/jdk
 
-# Set environment
-ENV JAVA_HOME /opt/jdk
-ENV PATH $PATH:$JAVA_HOME/bin
+RUN { \
+        echo; \
+		echo 'export JAVA_HOME=/opt/jdk'; \
+		echo 'export PATH=$PATH:$JAVA_HOME/bin:'; \
+    } >> /etc/bash.bashrc
