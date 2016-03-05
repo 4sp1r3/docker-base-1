@@ -42,8 +42,7 @@ RUN { \
 	&& set -x
 
 COPY set-java-home.bash /set-java-home.sh
-
-RUN chmod +x /set-java-home.sh \
-    && /set-java-home.sh
+RUN chmod +x /set-java-home.sh
+RUN /set-java-home.sh
 
 CMD ["/bin/bash"]
