@@ -30,4 +30,4 @@ docker build -t descoped/base .
 
 ### Further reading
 
-* Reference to [base image](https://hub.docker.com/_/ubuntu//).
+* Reference to [base image](https://hub.docker.com/_/ubuntu//)
