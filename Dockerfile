@@ -36,3 +36,6 @@ RUN { \
 		echo 'export JAVA_HOME=/opt/jdk'; \
 		echo 'export PATH=$PATH:$JAVA_HOME/bin:'; \
     } >> /etc/profile
+
+ADD set-java-home.bash /set-java-home.sh
+RUN chmod +x /set-java-home.sh
