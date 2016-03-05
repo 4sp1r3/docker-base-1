@@ -30,7 +30,7 @@ RUN curl -kLOH "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=ac
     ln -s /opt/jdk1.${JAVA_VERSION_MAJOR}.0_${JAVA_VERSION_MINOR} /opt/jdk
 
 # Set environment
-ENV JAVA_HOME /opt/jdk
-ENV PATH $PATH:$JAVA_HOME/bin
+#ENV JAVA_HOME /opt/jdk
+#ENV PATH $PATH:$JAVA_HOME/bin
 
 CMD ["/bin/bash"]
