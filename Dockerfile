@@ -37,5 +37,13 @@ RUN { \
 		echo 'export PATH=$PATH:$JAVA_HOME/bin:'; \
     } >> /etc/profile
 
+RUN { \
+		echo '#!/bin/bash'; \
+		echo 'set -e'; \
+		echo 'export JAVA_HOME=/opt/jdk'; \
+		echo 'export PATH=$PATH:$JAVA_HOME/bin:'; \
+	} > /usr/local/bin/docker-java-home \
+	&& chmod +x /usr/local/bin/docker-java-home
+
 ADD set-java-home.bash /set-java-home.sh
 RUN chmod +x /set-java-home.sh
