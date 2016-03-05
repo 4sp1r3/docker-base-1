@@ -31,18 +31,24 @@ RUN curl -kLOH "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=ac
     rm ${JAVA_PACKAGE}-${JAVA_VERSION_MAJOR}u${JAVA_VERSION_MINOR}-linux-x64.tar.gz && \
     ln -s /opt/jdk1.${JAVA_VERSION_MAJOR}.0_${JAVA_VERSION_MINOR} /opt/jdk
 
+#RUN { \
+#		echo '#!/usr/bin/env bash'; \
+#		echo 'set -e'; \
+#		echo; \
+#		echo 'export JAVA_HOME=/opt/jdk'; \
+#		echo 'export PATH=$PATH:$JAVA_HOME/bin:'; \
+#	} > /usr/local/bin/docker-java-home \
+#	&& chmod +x /usr/local/bin/docker-java-home \
+#	&& set -x
+#
+#COPY set-java-home.bash /set-java-home.sh
+#RUN chmod +x /set-java-home.sh
+#RUN /set-java-home.sh
+
 RUN { \
-		echo '#!/usr/bin/env bash'; \
-		echo 'set -e'; \
-		echo; \
+        echo; \
 		echo 'export JAVA_HOME=/opt/jdk'; \
 		echo 'export PATH=$PATH:$JAVA_HOME/bin:'; \
-	} > /usr/local/bin/docker-java-home \
-	&& chmod +x /usr/local/bin/docker-java-home \
-	&& set -x
-
-COPY set-java-home.bash /set-java-home.sh
-RUN chmod +x /set-java-home.sh
-RUN /set-java-home.sh
+    } >> /etc/bash.bashrc
 
 CMD ["/bin/bash"]
