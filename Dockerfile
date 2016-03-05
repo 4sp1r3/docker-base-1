@@ -49,3 +49,4 @@ RUN { \
 
 ADD set-java-home.bash /set-java-home.sh
 RUN chmod +x /set-java-home.sh
+
