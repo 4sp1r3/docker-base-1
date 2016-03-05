@@ -5,7 +5,8 @@ MAINTAINER Ove Ranheim <oranheim@gmail.com>
 ENV JAVA_VERSION_MAJOR 8
 ENV JAVA_VERSION_MINOR 66
 ENV JAVA_VERSION_BUILD 17
-ENV JAVA_PACKAGE       jdk
+ENV JAVA_PACKAGE jdk
+ENV LANG C.UTF-8
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get update
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends     \
@@ -28,6 +29,14 @@ RUN curl -kLOH "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=ac
     tar -zxf ${JAVA_PACKAGE}-${JAVA_VERSION_MAJOR}u${JAVA_VERSION_MINOR}-linux-x64.tar.gz -C /opt && \
     rm ${JAVA_PACKAGE}-${JAVA_VERSION_MAJOR}u${JAVA_VERSION_MINOR}-linux-x64.tar.gz && \
     ln -s /opt/jdk1.${JAVA_VERSION_MAJOR}.0_${JAVA_VERSION_MINOR} /opt/jdk
+
+RUN { \
+		echo '#!/bin/bash'; \
+		echo 'set -e'; \
+		echo; \
+		echo 'dirname "$(dirname "$(readlink -f "$(which javac || which java)")")"'; \
+	} > /usr/local/bin/docker-java-home \
+	&& chmod +x /usr/local/bin/docker-java-home
 
 # Set environment
 #ENV JAVA_HOME /opt/jdk
