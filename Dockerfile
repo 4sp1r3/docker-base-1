@@ -8,6 +8,9 @@ ENV JAVA_VERSION_BUILD 17
 ENV JAVA_PACKAGE jdk
 ENV LANG C.UTF-8
 
+ENV JAVA_HOME /opt/jdk
+ENV PATH $PATH:$JAVA_HOME/bin
+
 RUN DEBIAN_FRONTEND=noninteractive apt-get update
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends     \
             ca-certificates git-core curl sudo                                    \
@@ -34,12 +37,9 @@ RUN { \
 		echo '#!/bin/bash'; \
 		echo 'set -e'; \
 		echo; \
-		echo 'export JAVA_HOME=/opt/jdk'; \
-		echo 'export PATH=$PATH:$JAVA_HOME/bin'; \
+		echo 'dirname "$(dirname "$(readlink -f "$(which javac || which java)")")"'; \
 	} > /usr/local/bin/docker-java-home \
 	&& chmod +x /usr/local/bin/docker-java-home \
-	&& docker-java-home
-
-#ENV PATH $PATH:$JAVA_HOME/bin
+	&& [ "$JAVA_HOME" = "$(docker-java-home)" ]
 
 CMD ["/bin/bash"]
