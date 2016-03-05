@@ -1,6 +1,6 @@
 # Descoped Base
 
-## What is this image?
+## About
 
 The purpose of the Descoped Base image is to provide some basic base capabilities for other Descoped images, such as:
 
@@ -11,18 +11,23 @@ The purpose of the Descoped Base image is to provide some basic base capabilitie
 
 > By using this software you also agree to the [Oracle Binary Code License Agreement for Java SE](http://www.oracle.com/technetwork/java/javase/terms/license/index.html)
 
-## How to use this image?
+
+## How to use?
 
 No configuration is required for the container `descoped/base`.
 
 ## Source code
 
-If you want to contribute to this project or make use of the source code, you'll find it on GitHub:
+If you want to contribute to this project or make use of the source code, you'll find it on [GitHub](https://github.com/descoped/docker-base):
 
-[https://github.com/descoped/docker-base](https://github.com/descoped/docker-base)
 
 ### Building the image
 
 ```
 docker build -t descoped/base .
 ```
+
+
+### Further reading
+
+* Reference to [base image](https://hub.docker.com/_/ubuntu//).
