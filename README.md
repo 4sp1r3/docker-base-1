@@ -18,7 +18,7 @@ No configuration is required for the container `descoped/base`.
 
 ## Source code
 
-If you want to contribute to this project or make use of the source code, you'll find it on [GitHub](https://github.com/descoped/docker-base):
+If you want to contribute to this project or make use of the source code, you'll find it on [GitHub](https://github.com/descoped/docker-base).
 
 
 ### Building the image
