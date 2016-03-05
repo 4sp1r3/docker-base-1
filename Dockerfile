@@ -40,10 +40,10 @@ RUN curl -kLOH "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=ac
 RUN { \
 		echo '#!/bin/bash'; \
 		echo 'set -e'; \
-		echo 'if [[ "$PATH" == ?(*:)"$JAVA_HOME/bin"?(:*) ]]; then' \
+		echo 'if [[ "$PATH" == ?(*:)"$JAVA_HOME/bin"?(:*) ]]; then'; \
 		echo '  export JAVA_HOME=/opt/jdk'; \
 		echo '  export PATH=$PATH:$JAVA_HOME/bin:'; \
-		echo 'fi' \
+		echo 'fi'; \
 	} > /usr/local/bin/docker-java-home \
 	&& chmod +x /usr/local/bin/docker-java-home
 
