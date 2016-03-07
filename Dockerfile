@@ -18,10 +18,10 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends   
 # grab gosu for easy step-down from root
 RUN gpg --keyserver pool.sks-keyservers.net --recv-keys B42F6819007F00F88E364FD4036A9C25BF357DD4
 RUN curl -o /usr/local/bin/gosu -fSL "https://github.com/tianon/gosu/releases/download/1.7/gosu-$(dpkg --print-architecture)" \
-	&& curl -o /usr/local/bin/gosu.asc -fSL "https://github.com/tianon/gosu/releases/download/1.7/gosu-$(dpkg --print-architecture).asc" \
-	&& gpg --verify /usr/local/bin/gosu.asc \
-	&& rm /usr/local/bin/gosu.asc \
-	&& chmod +x /usr/local/bin/gosu
+    && curl -o /usr/local/bin/gosu.asc -fSL "https://github.com/tianon/gosu/releases/download/1.7/gosu-$(dpkg --print-architecture).asc" \
+    && gpg --verify /usr/local/bin/gosu.asc \
+    && rm /usr/local/bin/gosu.asc \
+    && chmod +x /usr/local/bin/gosu
 
 # Origin: https://hub.docker.com/r/oberthur/docker-ubuntu-java/~/dockerfile/
 RUN curl -kLOH "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie" \
@@ -31,11 +31,11 @@ RUN curl -kLOH "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=ac
     ln -s /opt/jdk1.${JAVA_VERSION_MAJOR}.0_${JAVA_VERSION_MINOR} /opt/jdk
 
 RUN { \
-		echo '#!/bin/bash'; \
-		echo 'set -e'; \
-		echo 'if [[ "$PATH" == ?(*:)"$JAVA_HOME/bin"?(:*) ]]; then'; \
-		echo '  export JAVA_HOME=/opt/jdk'; \
-		echo '  export PATH=$PATH:$JAVA_HOME/bin:'; \
-		echo 'fi'; \
-	} > /usr/local/bin/docker-java-home \
-	&& chmod +x /usr/local/bin/docker-java-home
+        echo '#!/bin/bash'; \
+        echo 'set -e'; \
+        echo 'if [[ "$PATH" == ?(*:)"$JAVA_HOME/bin"?(:*) ]]; then'; \
+        echo '  export JAVA_HOME=/opt/jdk'; \
+        echo '  export PATH=$PATH:$JAVA_HOME/bin:'; \
+        echo 'fi'; \
+    } > /usr/local/bin/docker-java-home \
+    && chmod +x /usr/local/bin/docker-java-home
